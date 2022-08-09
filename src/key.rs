@@ -18,13 +18,12 @@ where
     type Rejection = TemplateError;
 
     async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
-        let Extension(key) = req
-            .extract::<Extension<Key>>().await
-            .map_err(|_| {
-                TemplateError::MissingKey(format!(
-                    "Template key missing. Add `axum_template::util::key::KeyService` or provide your own key"
-                ))
-            })?;
+        let Extension(key) = req.extract::<Extension<Key>>().await.map_err(|_| {
+            TemplateError::MissingKey(format!(
+                "Template key missing. See {}",
+                std::any::type_name::<Key>()
+            ))
+        })?;
         Ok(key)
     }
 }
