@@ -1,9 +1,16 @@
+use async_trait::async_trait;
+use axum::{
+    extract::{FromRequest, RequestParts},
+    Extension,
+};
 use std::sync::Arc;
 use tower_http::add_extension::AddExtension;
 use tower_layer::Layer;
 
 #[cfg(feature = "handlebars")]
 mod handlebars;
+use crate::error::TemplateError;
+
 #[cfg(feature = "handlebars")]
 pub use self::handlebars::*;
 
@@ -16,6 +23,11 @@ pub use self::tera::*;
 mod tinytemplate;
 #[cfg(feature = "tinytemplate")]
 pub use self::tinytemplate::*;
+
+#[cfg(feature = "minijinja")]
+mod minijinja;
+#[cfg(feature = "minijinja")]
+pub use self::minijinja::*;
 
 #[derive(Debug, Clone)]
 pub struct Engine<E> {
@@ -43,5 +55,25 @@ where
 
     fn layer(&self, inner: S) -> Self::Service {
         AddExtension::new(inner, self.clone())
+    }
+}
+
+#[async_trait]
+impl<B, E> FromRequest<B> for Engine<E>
+where
+    Self: Clone + Send + Sync + 'static,
+    B: Send,
+{
+    type Rejection = TemplateError;
+
+    async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
+        let Extension(engine) = req.extract::<Extension<Self>>().await.map_err(|_| {
+            TemplateError::MissingEngine(format!(
+                "Template engine missing. See documentation for {}",
+                std::any::type_name::<Self>()
+            ))
+        })?;
+
+        Ok(engine)
     }
 }
