@@ -4,7 +4,7 @@
 //! # Usage
 //! 
 //! The [`engine`] module contains detailed usage examples for each of the 
-//! supported languages. 
+//! supported template engines. 
 //! 
 //! # Available features
 //! 
