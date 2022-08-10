@@ -31,6 +31,7 @@ pub use self::minijinja::*;
 
 #[derive(Debug, Clone)]
 pub struct Engine<E> {
+    #[allow(dead_code)]
     engine: Arc<E>,
 }
 
