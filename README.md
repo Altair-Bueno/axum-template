@@ -4,10 +4,17 @@
 Layers, extractors and template engine wrappers for 
 [axum](https://github.com/tokio-rs/axum) based Web MVC applications
 
-# Usage
+# Getting started
+
+## `Cargo.toml`
+
+```toml
+[dependencies]
+axum-template = "0.1.0"
+```
 
 The [`engine`] module contains detailed usage examples for each of the 
-supported languages. 
+supported template engines. 
 
 # Available features
 
