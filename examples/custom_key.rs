@@ -3,7 +3,7 @@
 //! Run the example using
 //!
 //! ```sh
-//! cargo run --examples=custom_key --features=tera
+//! cargo run --example=custom_key --features=tera
 //! ```
 
 use axum::{

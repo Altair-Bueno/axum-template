@@ -3,7 +3,7 @@
 //! Run the example using
 //!
 //! ```sh
-//! cargo run --examples=handlebars --features=handlebars
+//! cargo run --example=handlebars --features=handlebars
 //! ```
 use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
 use axum_template::{engines::Engine, Key, RenderHtml};
