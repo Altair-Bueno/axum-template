@@ -1,23 +1,19 @@
-//! Types that implement `TemplateEngine` for commonly used template engines
-//! from [crates.io](https://crates.io)
-//! 
+//! Types that implement `TemplateEngine` for commonly used template engines from [crates.io](https://crates.io)
+//!
 //! > Note: each engine is guarded behind a feature with the same name
-//! 
+//!
 //! # Table of contents
-//! 
+//!
 //! - [`handlebars`](#handlebars)
 //! - [`minijinja`](#minijinja)
 //! - [`tera`](#tera)
-//! - [`tinytemplate`](#tinytemplate)
-//! 
+//!
 //! # `handlebars`
 #![doc = concat!("```ignore\n",include_str!("../../examples/handlebars.rs"), "\n```")]
 //! # `minijinja`
 #![doc = concat!("```ignore\n",include_str!("../../examples/minijinja.rs"), "\n```")]
 //! # `tera`
 #![doc = concat!("```ignore\n",include_str!("../../examples/tera.rs"), "\n```")]
-//! # `tinytemplate`
-#![doc = concat!("```ignore\n",include_str!("../../examples/tinytemplate.rs"), "\n```")]
 
 use axum::{
     async_trait,
@@ -40,18 +36,13 @@ mod tera;
 #[cfg(feature = "tera")]
 pub use self::tera::*;
 
-#[cfg(feature = "tinytemplate")]
-mod tinytemplate;
-#[cfg(feature = "tinytemplate")]
-pub use self::tinytemplate::*;
-
 #[cfg(feature = "minijinja")]
 mod minijinja;
 #[cfg(feature = "minijinja")]
 pub use self::minijinja::*;
 
-/// A type that implements [`crate::TemplateEngine`] for common engines. See [`crate::engine`] 
-/// for usage instructions
+/// A wrapper type that implements [`crate::TemplateEngine`] for multiple 
+/// engines. See [`crate::engine`] for usage instructions
 #[derive(Debug, Clone)]
 pub struct Engine<E> {
     #[allow(dead_code)]
