@@ -1,42 +1,18 @@
-use axum::{
-    async_trait,
-    extract::{rejection::MatchedPathRejection, FromRequest, MatchedPath, Path, RequestParts},
-    response::IntoResponse,
-    routing::get,
-    Router, Server,
-};
-use axum_template::{engines::Engine, RenderHtml};
+use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
+use axum_template::{engines::Engine, Key, RenderHtml};
 use serde::Serialize;
 use tera::Tera;
 
-pub struct Template(pub String);
-
-#[async_trait]
-impl<B> FromRequest<B> for Template
-where
-    B: Send,
-{
-    type Rejection = MatchedPathRejection;
-
-    async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
-        let path = req.extract::<MatchedPath>().await?.as_str().to_owned();
-        Ok(Template(path))
-    }
-}
 type AppEngine = Engine<Tera>;
 
 #[derive(Debug, Serialize)]
 pub struct Person {
     name: String,
 }
-async fn get_name(
-    engine: AppEngine,
-    Template(template): Template,
-    Path(name): Path<String>,
-) -> impl IntoResponse {
+async fn get_name(engine: AppEngine, Key(key): Key, Path(name): Path<String>) -> impl IntoResponse {
     let person = Person { name };
 
-    RenderHtml(template, engine, person)
+    RenderHtml(key, engine, person)
 }
 
 #[tokio::main]
