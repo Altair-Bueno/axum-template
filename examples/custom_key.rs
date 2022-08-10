@@ -31,12 +31,12 @@ where
 
     async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
         let key = req
-            // axum_template::Key internally uses `axum::extract::MatchedPath`
+            // `axum_template::Key` internally uses `axum::extract::MatchedPath`
             .extract::<MatchedPath>()
             .await?
             .as_str()
             .chars()
-            // Remove the first character (/)
+            // Remove the first character `/`
             .skip(1)
             // Add the `.html` suffix
             .chain(".html".chars())
