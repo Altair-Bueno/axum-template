@@ -7,8 +7,8 @@
 //! ```
 use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
 use axum_template::{engine::Engine, Key, RenderHtml};
-use serde::Serialize;
 use minijinja::Environment;
+use serde::Serialize;
 
 // Type alias for our engine. For this example, we are using Mini Jinja
 type AppEngine = Engine<Environment<'static>>;
@@ -34,7 +34,9 @@ async fn get_name(
 async fn main() {
     // Set up the Handlebars engine with the same route paths as the Axum router
     let mut jinja = Environment::new();
-    jinja.add_template("/:name", "<h1>Hello Minijinja!</h1><p>{{name}}</p>").unwrap();
+    jinja
+        .add_template("/:name", "<h1>Hello Minijinja!</h1><p>{{name}}</p>")
+        .unwrap();
 
     let app = Router::new()
         .route("/:name", get(get_name))

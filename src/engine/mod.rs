@@ -107,7 +107,9 @@ pub enum EngineRejection {
 impl IntoResponse for EngineRejection {
     fn into_response(self) -> axum::response::Response {
         match self {
-            EngineRejection::MissingEngine(x) => (StatusCode::INTERNAL_SERVER_ERROR, x).into_response(),
+            EngineRejection::MissingEngine(x) => {
+                (StatusCode::INTERNAL_SERVER_ERROR, x).into_response()
+            }
         }
     }
 }

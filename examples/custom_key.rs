@@ -8,7 +8,7 @@
 
 use axum::{
     async_trait,
-    extract::{FromRequest, MatchedPath, Path, RequestParts, rejection::MatchedPathRejection},
+    extract::{rejection::MatchedPathRejection, FromRequest, MatchedPath, Path, RequestParts},
     response::IntoResponse,
     routing::get,
     Router, Server,

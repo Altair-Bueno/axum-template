@@ -4,20 +4,20 @@ use serde::Serialize;
 use crate::TemplateEngine;
 
 /// Rendered template response
-/// 
-/// Responds to the request with the rendered template and 
+///
+/// Responds to the request with the rendered template and
 /// `text/plain; charset=utf-8` content-type
-/// 
+///
 /// # Usage
-/// 
+///
 /// ```
 /// # use axum::{response::IntoResponse};
 /// # use axum_template::{Render, TemplateEngine};
 /// use serde::Serialize;
-/// 
+///
 /// #[derive(Serialize)]
 /// struct Person { /* */ }
-/// 
+///
 /// async fn handler(
 ///     engine: impl TemplateEngine,
 /// ) -> impl IntoResponse {
@@ -46,22 +46,21 @@ where
     }
 }
 
-
 /// Rendered Html response
-/// 
-/// Responds to the request with the rendered template and 
+///
+/// Responds to the request with the rendered template and
 /// `text/html` content-type
-/// 
+///
 /// # Usage
-/// 
+///
 /// ```
 /// # use axum::{response::IntoResponse};
 /// # use axum_template::{RenderHtml, TemplateEngine};
 /// use serde::Serialize;
-/// 
+///
 /// #[derive(Serialize)]
 /// struct Person { /* */ }
-/// 
+///
 /// async fn handler(
 ///     engine: impl TemplateEngine,
 /// ) -> impl IntoResponse {

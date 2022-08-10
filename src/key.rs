@@ -1,6 +1,6 @@
 use axum::{
     async_trait,
-    extract::{FromRequest, MatchedPath, RequestParts, rejection::MatchedPathRejection},
+    extract::{rejection::MatchedPathRejection, FromRequest, MatchedPath, RequestParts},
 };
 
 /// Extracts matched path of the request
