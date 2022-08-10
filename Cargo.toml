@@ -46,3 +46,9 @@ required-features = ["handlebars"]
 name = "custom_key"
 required-features = ["tera"]
 
+[[example]]
+name = "custom_engine"
+
+[[example]]
+name = "nested"
+required-features = ["handlebars"]
