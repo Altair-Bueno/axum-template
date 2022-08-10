@@ -25,7 +25,7 @@ supported template engines.
 # Useful links
 
 - [Documentation](https://docs.rs/axum-template)
-- [`Examples](https://github.com/Altair-Bueno/axum-template/examples)
+- [Examples](https://github.com/Altair-Bueno/axum-template/examples)
 - [Source code](https://github.com/Altair-Bueno/axum-template)
 
 <!-- cargo-sync-readme end -->
