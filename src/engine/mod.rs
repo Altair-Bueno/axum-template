@@ -1,4 +1,4 @@
-//! Types that implement `TemplateEngine` for commonly used template engines from [crates.io](https://crates.io)
+//! Types that implement `TemplateEngine` for commonly used template engines
 //!
 //! > Note: each engine is guarded behind a feature with the same name
 //!
