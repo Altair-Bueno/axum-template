@@ -21,10 +21,10 @@ tower-layer = "0.3.1"
 tower-http = { version = "0.3.4", features = ["add-extension"] }
 axum = { version = "0.5.13", features=["matched-path"] }
 
-# Available template engines
-tera = { version = "1.16.0", optional = true}
-handlebars = { version = "4.3.3", optional = true }
-minijinja = { version = "0.17.0", optional = true }
+# Supported template engines
+tera = { version = "1.16.0", optional = true, default-features = false }
+handlebars = { version = "4.3.3", optional = true, default-features = false }
+minijinja = { version = "0.17.0", optional = true, default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.20.1", features = ["full"] }
