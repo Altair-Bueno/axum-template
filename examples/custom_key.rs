@@ -8,12 +8,12 @@
 
 use axum::{
     async_trait,
-    extract::{FromRequest, MatchedPath, Path, RequestParts},
+    extract::{FromRequest, MatchedPath, Path, RequestParts, rejection::MatchedPathRejection},
     response::IntoResponse,
     routing::get,
     Router, Server,
 };
-use axum_template::{engine::Engine, RenderHtml, TemplateError};
+use axum_template::{engine::Engine, RenderHtml};
 use serde::Serialize;
 use tera::Tera;
 
@@ -27,7 +27,7 @@ impl<B> FromRequest<B> for CustomKey
 where
     B: Send,
 {
-    type Rejection = TemplateError;
+    type Rejection = MatchedPathRejection;
 
     async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
         let key = req

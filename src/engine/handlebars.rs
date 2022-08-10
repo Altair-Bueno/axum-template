@@ -16,8 +16,10 @@ impl TemplateEngine for Engine<Handlebars<'static>> {
     }
 }
 
+/// Error wrapper for [`handlebars::RenderError`]
 #[derive(Error, Debug)]
 pub enum HandlebarsError {
+    /// See [`handlebars::RenderError`]
     #[error(transparent)]
     RenderError(#[from] handlebars::RenderError),
 }

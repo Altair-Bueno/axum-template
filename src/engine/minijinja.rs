@@ -3,7 +3,7 @@ use crate::TemplateEngine;
 use super::Engine;
 
 use axum::{http::StatusCode, response::IntoResponse};
-use minijinja::{Environment, Error};
+use minijinja::Environment;
 use thiserror::Error;
 
 impl TemplateEngine for Engine<Environment<'static>> {
@@ -17,10 +17,12 @@ impl TemplateEngine for Engine<Environment<'static>> {
     }
 }
 
+/// Error wrapper for [`minijinja::Error`]
 #[derive(Error, Debug)]
 pub enum MinijinjaError {
+    /// See [`minijinja::Error`]
     #[error(transparent)]
-    RenderError(#[from] Error),
+    RenderError(#[from] minijinja::Error),
 }
 
 impl IntoResponse for MinijinjaError {

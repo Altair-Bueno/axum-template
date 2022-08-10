@@ -18,6 +18,8 @@
 use axum::{
     async_trait,
     extract::{FromRequest, RequestParts},
+    http::StatusCode,
+    response::IntoResponse,
     Extension,
 };
 use std::sync::Arc;
@@ -26,8 +28,6 @@ use tower_layer::Layer;
 
 #[cfg(feature = "handlebars")]
 mod handlebars;
-use crate::error::*;
-
 #[cfg(feature = "handlebars")]
 pub use self::handlebars::*;
 
@@ -41,8 +41,9 @@ mod minijinja;
 #[cfg(feature = "minijinja")]
 pub use self::minijinja::*;
 
-/// A wrapper type that implements [`crate::TemplateEngine`] for multiple 
-/// engines. See [`crate::engine`] for usage instructions
+/// A wrapper type that implements [`crate::TemplateEngine`] for multiple
+/// commonly used engines. See [`crate::engine`] for detailed usage instructions
+/// and examples
 #[derive(Debug, Clone)]
 pub struct Engine<E> {
     #[allow(dead_code)]
@@ -80,16 +81,33 @@ where
     Self: Clone + Send + Sync + 'static,
     B: Send,
 {
-    type Rejection = TemplateError;
+    type Rejection = EngineRejection;
 
     async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
         let Extension(engine) = req.extract::<Extension<Self>>().await.map_err(|_| {
-            TemplateError::MissingEngine(format!(
+            EngineRejection::MissingEngine(format!(
                 "Template engine missing. See documentation for {}",
                 std::any::type_name::<Self>()
             ))
         })?;
 
         Ok(engine)
+    }
+}
+
+/// Rejection used for [`Engine`]
+#[derive(Debug, thiserror::Error)]
+pub enum EngineRejection {
+    /// The requested engine type is missing. Check if [`Engine`]
+    /// was added as layer to the router
+    #[error("{0}")]
+    MissingEngine(String),
+}
+
+impl IntoResponse for EngineRejection {
+    fn into_response(self) -> axum::response::Response {
+        match self {
+            EngineRejection::MissingEngine(x) => (StatusCode::INTERNAL_SERVER_ERROR, x).into_response(),
+        }
     }
 }

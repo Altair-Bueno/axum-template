@@ -17,8 +17,10 @@ impl TemplateEngine for Engine<Tera> {
     }
 }
 
+/// Error wrapper for [`tera::Error`]
 #[derive(Error, Debug)]
 pub enum TeraError {
+    /// See [`tera::Error`]
     #[error(transparent)]
     RenderError(#[from] tera::Error),
 }
