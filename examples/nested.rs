@@ -7,7 +7,7 @@
 //! ```
 
 use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
-use axum_template::{engines::Engine, Key, RenderHtml};
+use axum_template::{engine::Engine, Key, RenderHtml};
 use handlebars::Handlebars;
 use serde::Serialize;
 

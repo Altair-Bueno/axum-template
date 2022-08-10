@@ -13,7 +13,7 @@ use axum::{
     routing::get,
     Router, Server,
 };
-use axum_template::{engines::Engine, RenderHtml, TemplateError};
+use axum_template::{engine::Engine, RenderHtml, TemplateError};
 use serde::Serialize;
 use tera::Tera;
 

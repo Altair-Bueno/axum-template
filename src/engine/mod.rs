@@ -1,3 +1,24 @@
+//! Types that implement `TemplateEngine` for commonly used template engines
+//! from [crates.io](https://crates.io)
+//! 
+//! > Note: each engine is guarded behind a feature with the same name
+//! 
+//! # Table of contents
+//! 
+//! - [`handlebars`](#handlebars)
+//! - [`minijinja`](#minijinja)
+//! - [`tera`](#tera)
+//! - [`tinytemplate`](#tinytemplate)
+//! 
+//! # `handlebars`
+#![doc = concat!("```ignore\n",include_str!("../../examples/handlebars.rs"), "\n```")]
+//! # `minijinja`
+#![doc = concat!("```ignore\n",include_str!("../../examples/minijinja.rs"), "\n```")]
+//! # `tera`
+#![doc = concat!("```ignore\n",include_str!("../../examples/tera.rs"), "\n```")]
+//! # `tinytemplate`
+#![doc = concat!("```ignore\n",include_str!("../../examples/tinytemplate.rs"), "\n```")]
+
 use axum::{
     async_trait,
     extract::{FromRequest, RequestParts},
@@ -9,7 +30,7 @@ use tower_layer::Layer;
 
 #[cfg(feature = "handlebars")]
 mod handlebars;
-use crate::error::TemplateError;
+use crate::error::*;
 
 #[cfg(feature = "handlebars")]
 pub use self::handlebars::*;
@@ -29,6 +50,8 @@ mod minijinja;
 #[cfg(feature = "minijinja")]
 pub use self::minijinja::*;
 
+/// A type that implements [`crate::TemplateEngine`] for common engines. See [`crate::engine`] 
+/// for usage instructions
 #[derive(Debug, Clone)]
 pub struct Engine<E> {
     #[allow(dead_code)]
@@ -36,6 +59,7 @@ pub struct Engine<E> {
 }
 
 impl<E> Engine<E> {
+    /// Creates a new [`Engine`] that wraps the given engine
     pub fn new(engine: E) -> Self {
         let engine = Arc::new(engine);
         Self { engine }
