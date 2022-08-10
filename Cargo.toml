@@ -3,10 +3,12 @@ name = "axum-template"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-description = ""
+description = "Layers, extractors and template engine wrappers for axum based Web MVC applications"
 homepage = "https://github.com/Altair-Bueno/axum-template"
 repository = "https://github.com/Altair-Bueno/axum-template"
 readme = "README.md"
+keywords = ["axum", "minijinja", "tera", "handlebars", "mvc"]
+categories = ["template-engine", "web-programming"]
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
