@@ -35,6 +35,8 @@ where
             .extract::<MatchedPath>()
             .await?
             .as_str()
+            // Cargo doesn't allow `:` as a file name
+            .replace(":", "$")
             .chars()
             // Remove the first character `/`
             .skip(1)
@@ -68,7 +70,7 @@ async fn get_name(
 #[tokio::main]
 async fn main() {
     // Tera allows loading an entire folder using glob patterns. This will load
-    // our file examples/templates/tera/:name.html with the key :name.html
+    // our file examples/templates/tera/$name.html with the key $name.html
     let tera = Tera::new("examples/templates/tera/**/*.html").expect("Template folder not found");
     let app = Router::new()
         .route("/:name", get(get_name))
