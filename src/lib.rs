@@ -21,9 +21,9 @@
 //! 
 //! # Useful links
 //! 
-//! - [`Documentation`](https://docs.rs/axum-template)
-//! - [`Examples`](https://github.com/Altair-Bueno/axum-template/examples)
-//! - [`Source code`](https://github.com/Altair-Bueno/axum-template)
+//! - [Documentation](https://docs.rs/axum-template)
+//! - [`Examples](https://github.com/Altair-Bueno/axum-template/examples)
+//! - [Source code](https://github.com/Altair-Bueno/axum-template)
 
 #![warn(
     clippy::all,

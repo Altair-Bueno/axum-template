@@ -14,7 +14,7 @@ axum-template = "0.1.0"
 ```
 
 The [`engine`] module contains detailed usage examples for each of the 
-supported template engines. 
+supported template engines.
 
 # Available features
 
@@ -24,8 +24,8 @@ supported template engines.
 
 # Useful links
 
-- [`Documentation`](https://docs.rs/axum-template)
-- [`Examples`](https://github.com/Altair-Bueno/axum-template/examples)
-- [`Source code`](https://github.com/Altair-Bueno/axum-template)
+- [Documentation](https://docs.rs/axum-template)
+- [`Examples](https://github.com/Altair-Bueno/axum-template/examples)
+- [Source code](https://github.com/Altair-Bueno/axum-template)
 
 <!-- cargo-sync-readme end -->
