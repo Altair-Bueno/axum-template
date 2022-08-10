@@ -1,7 +1,28 @@
-use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
-use axum_template::{engines::Engine, Render, Template};
+use axum::{
+    async_trait,
+    extract::{rejection::MatchedPathRejection, FromRequest, MatchedPath, Path, RequestParts},
+    response::IntoResponse,
+    routing::get,
+    Router, Server,
+};
+use axum_template::{engines::Engine, RenderHtml};
 use handlebars::Handlebars;
 use serde::Serialize;
+
+pub struct Template(pub String);
+
+#[async_trait]
+impl<B> FromRequest<B> for Template
+where
+    B: Send,
+{
+    type Rejection = MatchedPathRejection;
+
+    async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
+        let path = req.extract::<MatchedPath>().await?.as_str().to_owned();
+        Ok(Template(path))
+    }
+}
 
 type AppEngine = Engine<Handlebars<'static>>;
 
@@ -10,18 +31,24 @@ pub struct Person {
     name: String,
 }
 
-async fn person(template: Template<AppEngine>, Path(name): Path<String>) -> impl IntoResponse {
+async fn get_name(
+    engine: AppEngine,
+    Template(template): Template,
+    Path(name): Path<String>,
+) -> impl IntoResponse {
     let person = Person { name };
 
-    Render(template, person)
+    RenderHtml(template, engine, person)
 }
 
 #[tokio::main]
 async fn main() {
-    let hbs = Handlebars::new();
+    let mut hbs = Handlebars::new();
+    hbs.register_template_string("/:name", "<h1>Hello HandleBars!</h1><p>{{name}}</p>")
+        .unwrap();
 
     let app = Router::new()
-        .route("/:name", get(person))
+        .route("/:name", get(get_name))
         .layer(Engine::new(hbs));
 
     Server::bind(&([127, 0, 0, 1], 8080).into())

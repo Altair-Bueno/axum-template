@@ -12,23 +12,27 @@ readme = "README.md"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-async-trait = "0.1.57"
-axum = { version = "0.5.13", features = ["matched-path"] }
-serde = "1.0.142"
-thiserror = "1.0.32"
-tera = { version = "1.16.0", optional = true }
+serde = "1"
+thiserror = "1"
+
 tower-layer = "0.3.1"
-futures = "0.3.21"
 tower-http = { version = "0.3.4", features = ["add-extension"] }
+axum = { version = "0.5.13" }
+
+# Available template engines
+tera = { version = "1.16.0", optional = true}
 handlebars = { version = "4.3.3", optional = true }
-tower-service = "0.3.2"
 tinytemplate = { version = "1.2.1", optional = true }
+minijinja = { version = "0.17.0", optional = true }
+mime = "0.3.16"
 
 [dev-dependencies]
 tokio = { version = "1.20.1", features = ["full"] }
 serde = { version = "1", features= ["derive"]}
 tower-http = { version = "0.3.4", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
+rstest = "0.15.0"
+speculoos = "0.9.0"
 
 [[example]]
 name = "tera"
@@ -37,3 +41,8 @@ required-features=["tera"]
 [[example]]
 name = "handlebars"
 required-features = ["handlebars"]
+
+[[example]]
+name = "folder"
+required-features = ["tera"]
+

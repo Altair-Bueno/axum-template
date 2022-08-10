@@ -14,21 +14,30 @@ pub struct Template(pub String);
 #[async_trait]
 impl<B> FromRequest<B> for Template
 where
-    B: Send,
+    B: Send, // required by `async_trait`
 {
     type Rejection = MatchedPathRejection;
 
     async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
-        let path = req.extract::<MatchedPath>().await?.as_str().to_owned();
+        let path = req.extract::<MatchedPath>().await?;
+        // Remove the first / and append .html
+        let path = path
+            .as_str()
+            .chars()
+            .skip(1)
+            .chain(".html".chars())
+            .collect();
         Ok(Template(path))
     }
 }
+
 type AppEngine = Engine<Tera>;
 
 #[derive(Debug, Serialize)]
 pub struct Person {
     name: String,
 }
+
 async fn get_name(
     engine: AppEngine,
     Template(template): Template,
@@ -38,13 +47,9 @@ async fn get_name(
 
     RenderHtml(template, engine, person)
 }
-
 #[tokio::main]
 async fn main() {
-    let mut tera = Tera::default();
-    tera.add_raw_template("/:name", "<h1>Hello Tera!</h1><p>{{name}}</p>")
-        .unwrap();
-
+    let tera = Tera::new("examples/templates/tera/**/*.html").expect("Template folder not found");
     let app = Router::new()
         .route("/:name", get(get_name))
         .layer(Engine::new(tera));

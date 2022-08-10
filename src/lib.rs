@@ -2,16 +2,12 @@
 //!
 //!
 
-mod key;
+mod error;
 mod render;
-mod template;
 mod traits;
 
 pub mod engines;
-pub mod error;
-pub mod util;
 
-pub use key::Key;
-pub use render::Render;
-pub use template::Template;
+pub use error::TemplateError;
+pub use render::{Render, RenderHtml};
 pub use traits::TemplateEngine;
