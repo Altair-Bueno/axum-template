@@ -41,7 +41,7 @@
 //! [handlebars]: https://crates.io/crates/handlebars
 //! [minijinja]: https://crates.io/crates/minijinja
 //! [tera]: https://crates.io/crates/tera
-//! 
+//!
 
 #![warn(
     clippy::all,
