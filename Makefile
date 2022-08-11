@@ -9,7 +9,7 @@ CARGO_EXAMPLES = custom_engine \
 
 ################################################################################
 # Main goals
-ci: CARGO_CCARGS = --all-features
+ci: CARGO_CCARGS = --all-features --verbose
 ci: test build lint
 
 sync: README.md
