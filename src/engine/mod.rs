@@ -41,9 +41,11 @@ mod minijinja;
 #[cfg(feature = "minijinja")]
 pub use self::minijinja::*;
 
-/// A wrapper type that implements [`crate::TemplateEngine`] for multiple
+/// A wrapper type that implements [`TemplateEngine`] for multiple
 /// commonly used engines. See [`crate::engine`] for detailed usage instructions
 /// and examples
+///
+/// [`TemplateEngine`]: crate::TemplateEngine
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Engine<E> {
     #[allow(dead_code)]
@@ -96,10 +98,14 @@ where
 }
 
 /// Rejection used for [`Engine`]
+///
+/// [`Engine`]: crate::engine::Engine
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum EngineRejection {
     /// The requested engine type is missing. Check if [`Engine`]
     /// was added as layer to the router
+    ///
+    /// [`Engine`]: crate::engine::Engine
     #[error("{0}")]
     MissingEngine(String),
 }

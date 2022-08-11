@@ -13,6 +13,8 @@
 //! The [`engine`] module contains detailed usage examples for each of the
 //! supported template engines.
 //!
+//! If you plan using an unsupported engine, check the [`TemplateEngine`] docs
+//!
 //! # Available features
 //!
 //! - `handlebars`: Enables [`handlebars`](https://crates.io/crates/handlebars) support
@@ -24,6 +26,9 @@
 //! - [Documentation](https://docs.rs/axum-template)
 //! - [Examples](https://github.com/Altair-Bueno/axum-template/examples)
 //! - [Source code](https://github.com/Altair-Bueno/axum-template)
+//!
+//! [`engine`]: crate::engine
+//! [`TemplateEngine`]: crate::TemplateEngine
 
 #![warn(
     clippy::all,

@@ -16,12 +16,16 @@ use serde::Serialize;
 /// impl TemplateEngine for CustomEngine {
 ///     type Error = Infallible;   
 ///     fn render<S: Serialize>(&self, key: &str, data: S) -> Result<String, Self::Error> {
-///         Ok(key.to_owned())    
+///         /* Render your template and return the result */
+///         let result = "Hello world".into();
+///         Ok(result)    
 ///     }
 /// }
 /// ```
 ///
-/// > See example [`custom_engine.rs`](examples/custom_engine.rs)
+/// > See the full working example [`custom_engine.rs`]
+///
+/// [`custom_engine.rs`]: https://github.com/Altair-Bueno/axum-template/blob/main/examples/custom_engine.rs
 pub trait TemplateEngine {
     /// Error type returned if the engine is unable to process the data
     type Error: IntoResponse;

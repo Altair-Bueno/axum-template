@@ -1,7 +1,7 @@
 # axum-template
 <!-- cargo-sync-readme start -->
 
-Layers, extractors and template engine wrappers for 
+Layers, extractors and template engine wrappers for
 [axum](https://github.com/tokio-rs/axum) based Web MVC applications
 
 # Getting started
@@ -13,8 +13,10 @@ Layers, extractors and template engine wrappers for
 axum-template = "0.1.0"
 ```
 
-The [`engine`] module contains detailed usage examples for each of the 
+The [`engine`] module contains detailed usage examples for each of the
 supported template engines.
+
+If you plan using an unsupported engine, check the [`TemplateEngine`] docs
 
 # Available features
 
@@ -27,5 +29,8 @@ supported template engines.
 - [Documentation](https://docs.rs/axum-template)
 - [Examples](https://github.com/Altair-Bueno/axum-template/examples)
 - [Source code](https://github.com/Altair-Bueno/axum-template)
+
+[`engine`]: crate::engine
+[`TemplateEngine`]: crate::TemplateEngine
 
 <!-- cargo-sync-readme end -->

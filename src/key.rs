@@ -33,8 +33,11 @@ use axum::{
 ///
 /// # Additional resources
 ///
-/// - [`axum::extract::MatchedPath`]
-/// - Example: [`custom_key.rs`](examples/custom_key.rs)
+/// - [`MatchedPath`]
+/// - Example: [`custom_key.rs`]
+///
+/// [`MatchedPath`]: axum::extract::MatchedPath
+/// [`custom_key.rs`]: https://github.com/Altair-Bueno/axum-template/blob/main/examples/custom_key.rs
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Key(pub String);
 
