@@ -35,7 +35,7 @@ use axum::{
 ///
 /// - [`axum::extract::MatchedPath`]
 /// - Example: [`custom_key.rs`](examples/custom_key.rs)
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Key(pub String);
 
 #[async_trait]

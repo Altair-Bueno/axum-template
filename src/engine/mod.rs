@@ -44,7 +44,7 @@ pub use self::minijinja::*;
 /// A wrapper type that implements [`crate::TemplateEngine`] for multiple
 /// commonly used engines. See [`crate::engine`] for detailed usage instructions
 /// and examples
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Engine<E> {
     #[allow(dead_code)]
     engine: Arc<E>,
@@ -96,7 +96,7 @@ where
 }
 
 /// Rejection used for [`Engine`]
-#[derive(Debug, thiserror::Error)]
+#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum EngineRejection {
     /// The requested engine type is missing. Check if [`Engine`]
     /// was added as layer to the router
