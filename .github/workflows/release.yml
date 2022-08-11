@@ -5,7 +5,7 @@ on:
       - "*"
   workflow_dispatch:
 jobs:
-  make_ci:
+  publish_crate:
     runs-on: ubuntu-latest
     strategy:
       matrix:
