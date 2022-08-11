@@ -8,7 +8,13 @@
 
 use std::convert::Infallible;
 
-use axum::{response::IntoResponse, routing::get, Extension, Router, Server};
+use axum::{
+    async_trait,
+    extract::{rejection::ExtensionRejection, FromRequest},
+    response::IntoResponse,
+    routing::get,
+    Extension, Router, Server,
+};
 use axum_template::{Key, RenderHtml, TemplateEngine};
 use serde::Serialize;
 
@@ -26,14 +32,28 @@ impl TemplateEngine for CustomEngine {
     }
 }
 
+#[async_trait]
+impl<B: Send> FromRequest<B> for CustomEngine {
+    type Rejection = ExtensionRejection;
+
+    async fn from_request(
+        req: &mut axum::extract::RequestParts<B>,
+    ) -> Result<Self, Self::Rejection> {
+        let Extension(req) = req.extract().await?;
+        Ok(req)
+    }
+}
+
 async fn get_name(
     // Obtain the engine
-    Extension(engine): Extension<CustomEngine>,
+    engine: AppEngine,
     // Extract the key
     Key(key): Key,
 ) -> impl IntoResponse {
     RenderHtml(key, engine, ())
 }
+
+type AppEngine = CustomEngine;
 
 #[tokio::main]
 async fn main() {
@@ -42,7 +62,7 @@ async fn main() {
     let engine = CustomEngine::default();
     let app = Router::new()
         .route("/:name", get(get_name))
-        // Share the engine using `axum::Extension`, or implement `FromRequest`
+        // Share the engine using `axum::Extension`, or implement `tower::Layer`
         // manually for your engine
         .layer(Extension(engine));
 
