@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 use axum::response::{Html, IntoResponse};
 use serde::Serialize;
 
@@ -21,23 +23,24 @@ use crate::TemplateEngine;
 /// async fn handler(
 ///     engine: impl TemplateEngine,
 /// ) -> impl IntoResponse {
-///     let key = "Template key".into();
+///     let key = "Template key";
 ///     let data = Person{ /* */ };
 ///     Render(key, engine, data)
 /// }
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Render<E, S>(pub String, pub E, pub S);
+pub struct Render<K, E, S>(pub K, pub E, pub S);
 
-impl<E, S> IntoResponse for Render<E, S>
+impl<K, E, S> IntoResponse for Render<K, E, S>
 where
     E: TemplateEngine,
     S: Serialize,
+    K: Borrow<str>,
 {
     fn into_response(self) -> axum::response::Response {
         let Render(key, engine, data) = self;
 
-        let result = engine.render(key.as_str(), data);
+        let result = engine.render(key.borrow(), data);
 
         match result {
             Ok(x) => x.into_response(),
@@ -64,23 +67,24 @@ where
 /// async fn handler(
 ///     engine: impl TemplateEngine,
 /// ) -> impl IntoResponse {
-///     let key = "Template key".into();
+///     let key = "Template key";
 ///     let data = Person{ /* */ };
 ///     RenderHtml(key, engine, data)
 /// }
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct RenderHtml<E, S>(pub String, pub E, pub S);
+pub struct RenderHtml<K, E, S>(pub K, pub E, pub S);
 
-impl<E, S> IntoResponse for RenderHtml<E, S>
+impl<K, E, S> IntoResponse for RenderHtml<K, E, S>
 where
     E: TemplateEngine,
     S: Serialize,
+    K: Borrow<str>,
 {
     fn into_response(self) -> axum::response::Response {
         let RenderHtml(key, engine, data) = self;
 
-        let result = engine.render(key.as_str(), data);
+        let result = engine.render(key.borrow(), data);
 
         match result {
             Ok(x) => Html(x).into_response(),
@@ -89,15 +93,15 @@ where
     }
 }
 
-impl<E, S> From<Render<E, S>> for RenderHtml<E, S> {
-    fn from(r: Render<E, S>) -> Self {
+impl<K, E, S> From<Render<K, E, S>> for RenderHtml<K, E, S> {
+    fn from(r: Render<K, E, S>) -> Self {
         let Render(a, b, c) = r;
         Self(a, b, c)
     }
 }
 
-impl<E, S> From<RenderHtml<E, S>> for Render<E, S> {
-    fn from(r: RenderHtml<E, S>) -> Self {
+impl<K, E, S> From<RenderHtml<K, E, S>> for Render<K, E, S> {
+    fn from(r: RenderHtml<K, E, S>) -> Self {
         let RenderHtml(a, b, c) = r;
         Self(a, b, c)
     }
