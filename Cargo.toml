@@ -33,6 +33,8 @@ tower-http = { version = "0.3.4", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
 rstest = "0.15.0"
 speculoos = "0.9.0"
+anyhow = "1.0.61"
+hyper = "0.14.20"
 
 [[example]]
 name = "tera"
