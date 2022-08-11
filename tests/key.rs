@@ -1,8 +1,7 @@
-use anyhow::Ok;
 use axum::{body::Body, http::Request, routing::get, Router};
 use axum_template::Key;
 use rstest::*;
-use speculoos::*;
+use speculoos::prelude::*;
 use tower::util::ServiceExt;
 
 #[rstest]
@@ -15,16 +14,14 @@ async fn key_extracts_from_request_route_path(
     #[case] route: &'static str,
     #[case] uri: &'static str,
 ) -> anyhow::Result<()> {
-    let router: Router = Router::new().route(route, get(|Key(key): Key| async move { key }));
+    let router: Router = Router::new().route(
+        route,
+        get(move |Key(key): Key| async move { assert_that!(key.as_str()).is_equal_to(route) }),
+    );
 
-    let response = router
+    let _response = router
         .oneshot(Request::builder().uri(uri).body(Body::empty())?)
         .await?;
-
-    let body = String::from_utf8(Vec::from(
-        &hyper::body::to_bytes(response.into_body()).await?[..],
-    ))?;
-    assert_that!(body.as_str()).is_equal_to(route);
 
     Ok(())
 }
