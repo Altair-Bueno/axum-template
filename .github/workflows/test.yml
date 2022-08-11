@@ -25,7 +25,7 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ matrix.toolchain }}-${{ hashFiles('**/Cargo.lock') }}
+          #  target/
+          key: ${{ runner.os }}-cargo-${{ matrix.toolchain }} # ${{ hashFiles('**/Cargo.lock') }}
       - run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
       - run: make ci
