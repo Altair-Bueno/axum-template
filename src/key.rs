@@ -50,3 +50,9 @@ where
         Ok(Key(path))
     }
 }
+
+impl From<String> for Key {
+    fn from(s: String) -> Self {
+        Self(s)
+    }
+}

@@ -106,3 +106,15 @@ impl<K, E, S> From<RenderHtml<K, E, S>> for Render<K, E, S> {
         Self(a, b, c)
     }
 }
+
+impl<K, E, S> From<(K, E, S)> for Render<K, E, S> {
+    fn from((k, e, s): (K, E, S)) -> Self {
+        Self(k, e, s)
+    }
+}
+
+impl<K, E, S> From<(K, E, S)> for RenderHtml<K, E, S> {
+    fn from((k, e, s): (K, E, S)) -> Self {
+        Self(k, e, s)
+    }
+}
