@@ -10,6 +10,8 @@ readme = "README.md"
 keywords = ["axum", "minijinja", "tera", "handlebars", "mvc"]
 categories = ["template-engine", "web-programming"]
 
+[package.metadata.docs.rs]
+all-features = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
