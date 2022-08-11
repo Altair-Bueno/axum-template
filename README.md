@@ -2,7 +2,7 @@
 <!-- cargo-sync-readme start -->
 
 Layers, extractors and template engine wrappers for
-[axum](https://github.com/tokio-rs/axum) based Web MVC applications
+[axum] based Web MVC applications
 
 # Getting started
 
@@ -20,17 +20,30 @@ If you plan using an unsupported engine, check the [`TemplateEngine`] docs
 
 # Available features
 
-- `handlebars`: Enables [`handlebars`](https://crates.io/crates/handlebars) support
-- `minijinja`: Enables [`minijinja`](https://crates.io/crates/minijinja) support
-- `tera`: Enables [`tera`](https://crates.io/crates/tera) support
+- `handlebars`: Enables [handlebars] support
+- `minijinja`: Enables [minijinja] support
+- `tera`: Enables [tera] support
 
 # Useful links
 
-- [Documentation](https://docs.rs/axum-template)
-- [Examples](https://github.com/Altair-Bueno/axum-template/examples)
-- [Source code](https://github.com/Altair-Bueno/axum-template)
+- [Documentation]
+- [Examples]
+- [Source code]
+
+# License
+
+Licensed under the MIT license. See [LICENSE] for more information
 
 [`engine`]: crate::engine
 [`TemplateEngine`]: crate::TemplateEngine
+[LICENSE]: https://github.com/Altair-Bueno/axum-template/blob/main/LICENSE
+[Documentation]: https://docs.rs/axum-template
+[Examples]: https://github.com/Altair-Bueno/axum-template/examples
+[Source code]: https://github.com/Altair-Bueno/axum-template
+[axum]: https://github.com/tokio-rs/axum
+[handlebars]: https://crates.io/crates/handlebars
+[minijinja]: https://crates.io/crates/minijinja
+[tera]: https://crates.io/crates/tera
+
 
 <!-- cargo-sync-readme end -->
