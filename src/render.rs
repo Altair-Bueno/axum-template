@@ -1,5 +1,3 @@
-use std::borrow::Borrow;
-
 use axum::response::{Html, IntoResponse};
 use serde::Serialize;
 
@@ -35,12 +33,12 @@ impl<K, E, S> IntoResponse for Render<K, E, S>
 where
     E: TemplateEngine,
     S: Serialize,
-    K: Borrow<str>,
+    K: AsRef<str>,
 {
     fn into_response(self) -> axum::response::Response {
         let Render(key, engine, data) = self;
 
-        let result = engine.render(key.borrow(), data);
+        let result = engine.render(key.as_ref(), data);
 
         match result {
             Ok(x) => x.into_response(),
@@ -79,12 +77,12 @@ impl<K, E, S> IntoResponse for RenderHtml<K, E, S>
 where
     E: TemplateEngine,
     S: Serialize,
-    K: Borrow<str>,
+    K: AsRef<str>,
 {
     fn into_response(self) -> axum::response::Response {
         let RenderHtml(key, engine, data) = self;
 
-        let result = engine.render(key.borrow(), data);
+        let result = engine.render(key.as_ref(), data);
 
         match result {
             Ok(x) => Html(x).into_response(),
