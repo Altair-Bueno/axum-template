@@ -10,7 +10,7 @@ Layers, extractors and template engine wrappers for
 
 ```toml
 [dependencies]
-axum-template = "0.1.0"
+axum-template = "0.2"
 ```
 
 The [`engine`] module contains detailed usage examples for each of the
@@ -38,7 +38,7 @@ Licensed under the MIT license. See [LICENSE] for more information
 [`TemplateEngine`]: crate::TemplateEngine
 [LICENSE]: https://github.com/Altair-Bueno/axum-template/blob/main/LICENSE
 [Documentation]: https://docs.rs/axum-template
-[Examples]: https://github.com/Altair-Bueno/axum-template/examples
+[Examples]: https://github.com/Altair-Bueno/axum-template/tree/main/examples
 [Source code]: https://github.com/Altair-Bueno/axum-template
 [axum]: https://github.com/tokio-rs/axum
 [handlebars]: https://crates.io/crates/handlebars
