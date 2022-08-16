@@ -74,10 +74,7 @@ impl<E> From<E> for Engine<E> {
     }
 }
 
-impl<S, E> Layer<S> for Engine<E>
-where
-    E: Clone,
-{
+impl<S, E> Layer<S> for Engine<E> {
     type Service = AddExtension<S, Self>;
 
     fn layer(&self, inner: S) -> Self::Service {
@@ -88,7 +85,7 @@ where
 #[async_trait]
 impl<B, E> FromRequest<B> for Engine<E>
 where
-    Self: Clone + Send + Sync + 'static,
+    Self: Send + Sync + 'static,
     B: Send,
 {
     type Rejection = EngineRejection;

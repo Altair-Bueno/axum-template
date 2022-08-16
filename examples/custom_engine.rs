@@ -18,8 +18,8 @@ use axum::{
 use axum_template::{Key, RenderHtml, TemplateEngine};
 use serde::Serialize;
 
-// Only Clone is required
-#[derive(Debug, Default, Clone)]
+// Clone is required by `axum::extract::Extension`
+#[derive(Debug, Clone)]
 pub struct CustomEngine;
 
 impl TemplateEngine for CustomEngine {
@@ -57,9 +57,7 @@ type AppEngine = CustomEngine;
 
 #[tokio::main]
 async fn main() {
-    // Tera allows loading an entire folder using glob patterns. This will load
-    // our file examples/templates/tera/:name.html with the key :name.html
-    let engine = CustomEngine::default();
+    let engine = CustomEngine;
     let app = Router::new()
         .route("/:name", get(get_name))
         // Share the engine using `axum::Extension`, or implement `tower::Layer`

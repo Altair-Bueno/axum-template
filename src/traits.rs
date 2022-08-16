@@ -10,7 +10,7 @@ use serde::Serialize;
 /// # use serde::Serialize;
 /// # use std::convert::Infallible;
 ///
-/// #[derive(Debug, Default, Clone)]
+/// #[derive(Debug)]
 /// pub struct CustomEngine;
 ///
 /// impl TemplateEngine for CustomEngine {
