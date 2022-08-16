@@ -22,7 +22,7 @@ use axum::{
     response::IntoResponse,
     Extension,
 };
-use std::sync::Arc;
+use std::{fmt::Debug, sync::Arc};
 use tower_http::add_extension::AddExtension;
 use tower_layer::Layer;
 
@@ -46,7 +46,7 @@ pub use self::minijinja::*;
 /// and examples
 ///
 /// [`TemplateEngine`]: crate::TemplateEngine
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Engine<E> {
     #[allow(dead_code)]
     engine: Arc<E>,
@@ -57,6 +57,14 @@ impl<E> Engine<E> {
     pub fn new(engine: E) -> Self {
         let engine = Arc::new(engine);
         Self { engine }
+    }
+}
+
+impl<E> Clone for Engine<E> {
+    fn clone(&self) -> Self {
+        Self {
+            engine: self.engine.clone(),
+        }
     }
 }
 
