@@ -10,7 +10,7 @@ Layers, extractors and template engine wrappers for
 
 ```toml
 [dependencies]
-axum-template = "0.2"
+axum-template = "0.3"
 ```
 
 The [`engine`] module contains detailed usage examples for each of the
