@@ -1,6 +1,6 @@
 [package]
 name = "axum-template"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2021"
 license = "MIT"
 description = "Layers, extractors and template engine wrappers for axum based Web MVC applications"
