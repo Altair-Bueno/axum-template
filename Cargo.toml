@@ -24,7 +24,7 @@ tower-http = { version = "0.3.4", features = ["add-extension"] }
 axum = { version = "0.5.13", features=["matched-path"], default-features = false }
 
 # Supported template engines
-tera = { version = "1.16.0", optional = true, default-features = false }
+tera = { version = "1.17.0", optional = true, default-features = false }
 handlebars = { version = "4.3.3", optional = true, default-features = false }
 minijinja = { version = "0.22.1", optional = true, default-features = false }
 
