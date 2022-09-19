@@ -7,7 +7,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! axum-template = "0.3"
+//! axum-template = "*"
 //! ```
 //!
 //! The [`engine`] module contains detailed usage examples for each of the
