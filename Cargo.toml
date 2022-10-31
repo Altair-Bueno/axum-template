@@ -35,7 +35,7 @@ tower-http = { version = "0.3.4", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
 axum = "0.5.13"
 rstest = "0.15.0"
-speculoos = "0.9.0"
+speculoos = "0.10.0"
 anyhow = "1.0.61"
 hyper = "0.14.20"
 
