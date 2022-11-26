@@ -35,6 +35,7 @@ async fn get_name(
     RenderHtml(key, engine, person)
 }
 
+// Define your application shared state
 #[derive(Clone, FromRef)]
 struct AppState {
     engine: AppEngine,
@@ -50,7 +51,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/:name", get(get_name))
-        // Add the Engine layer with your Handlebars instance
+        // Create the application state
         .with_state(AppState {
             engine: Engine::from(jinja),
         });
