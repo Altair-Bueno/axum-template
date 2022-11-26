@@ -25,3 +25,11 @@ async fn key_extracts_from_request_route_path(
 
     Ok(())
 }
+
+#[rstest]
+#[trace]
+#[tokio::test]
+async fn key_impl_asref_str() {
+    fn inner(_: impl AsRef<str>) {}
+    inner(Key("Some String".into()));
+}

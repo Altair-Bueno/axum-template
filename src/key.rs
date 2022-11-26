@@ -56,6 +56,12 @@ where
     }
 }
 
+impl AsRef<str> for Key {
+    fn as_ref(&self) -> &str {
+        self.0.as_str()
+    }
+}
+
 impl From<String> for Key {
     fn from(s: String) -> Self {
         Self(s)
