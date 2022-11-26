@@ -10,10 +10,11 @@ use std::convert::Infallible;
 
 use axum::{
     async_trait,
-    extract::{rejection::ExtensionRejection, FromRequest},
+    extract::{FromRef, FromRequestParts},
+    http::request::Parts,
     response::IntoResponse,
     routing::get,
-    Extension, Router, Server,
+    Router, Server,
 };
 use axum_template::{Key, RenderHtml, TemplateEngine};
 use serde::Serialize;
@@ -33,14 +34,18 @@ impl TemplateEngine for CustomEngine {
 }
 
 #[async_trait]
-impl<B: Send> FromRequest<B> for CustomEngine {
-    type Rejection = ExtensionRejection;
+impl<ApplicationState> FromRequestParts<ApplicationState> for CustomEngine
+where
+    Self: Send + Sync + 'static + FromRef<ApplicationState>,
+    ApplicationState: Send + Sync,
+{
+    type Rejection = Infallible;
 
-    async fn from_request(
-        req: &mut axum::extract::RequestParts<B>,
+    async fn from_request_parts(
+        _: &mut Parts,
+        state: &ApplicationState,
     ) -> Result<Self, Self::Rejection> {
-        let Extension(req) = req.extract().await?;
-        Ok(req)
+        Ok(Self::from_ref(state))
     }
 }
 
@@ -55,6 +60,11 @@ async fn get_name(
 
 type AppEngine = CustomEngine;
 
+#[derive(Clone, FromRef)]
+struct AppState {
+    engine: AppEngine,
+}
+
 #[tokio::main]
 async fn main() {
     let engine = CustomEngine;
@@ -62,7 +72,7 @@ async fn main() {
         .route("/:name", get(get_name))
         // Share the engine using `axum::Extension`, or implement `tower::Layer`
         // manually for your engine
-        .layer(Extension(engine));
+        .with_state(AppState { engine });
 
     println!("See example: http://127.0.0.1:8080/example");
     Server::bind(&([127, 0, 0, 1], 8080).into())

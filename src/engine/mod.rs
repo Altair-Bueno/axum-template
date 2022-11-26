@@ -17,14 +17,10 @@
 
 use axum::{
     async_trait,
-    extract::{FromRequest, RequestParts},
-    http::StatusCode,
-    response::IntoResponse,
-    Extension,
+    extract::{FromRef, FromRequestParts},
+    http::request::Parts,
 };
-use std::{fmt::Debug, sync::Arc};
-use tower_http::add_extension::AddExtension;
-use tower_layer::Layer;
+use std::{convert::Infallible, fmt::Debug, sync::Arc};
 
 #[cfg(feature = "handlebars")]
 mod handlebars;
@@ -74,53 +70,18 @@ impl<E> From<E> for Engine<E> {
     }
 }
 
-impl<S, E> Layer<S> for Engine<E> {
-    type Service = AddExtension<S, Self>;
-
-    fn layer(&self, inner: S) -> Self::Service {
-        AddExtension::new(inner, self.clone())
-    }
-}
-
 #[async_trait]
-impl<B, E> FromRequest<B> for Engine<E>
+impl<ApplicationState, E> FromRequestParts<ApplicationState> for Engine<E>
 where
-    Self: Send + Sync + 'static,
-    B: Send,
+    Self: Send + Sync + 'static + FromRef<ApplicationState>,
+    ApplicationState: Send + Sync,
 {
-    type Rejection = EngineRejection;
+    type Rejection = Infallible;
 
-    async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
-        let Extension(engine) = req.extract::<Extension<Self>>().await.map_err(|_| {
-            EngineRejection::MissingEngine(format!(
-                "Template engine missing. See documentation for {}",
-                std::any::type_name::<Self>()
-            ))
-        })?;
-
-        Ok(engine)
-    }
-}
-
-/// Rejection used for [`Engine`]
-///
-/// [`Engine`]: crate::engine::Engine
-#[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
-pub enum EngineRejection {
-    /// The requested engine type is missing. Check if [`Engine`]
-    /// was added as layer to the router
-    ///
-    /// [`Engine`]: crate::engine::Engine
-    #[error("{0}")]
-    MissingEngine(String),
-}
-
-impl IntoResponse for EngineRejection {
-    fn into_response(self) -> axum::response::Response {
-        match self {
-            EngineRejection::MissingEngine(x) => {
-                (StatusCode::INTERNAL_SERVER_ERROR, x).into_response()
-            }
-        }
+    async fn from_request_parts(
+        _: &mut Parts,
+        state: &ApplicationState,
+    ) -> Result<Self, Self::Rejection> {
+        Ok(Self::from_ref(state))
     }
 }
