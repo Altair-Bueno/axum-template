@@ -1,34 +1,39 @@
 #![allow(unused)]
 use std::marker::PhantomData;
 
+use axum::extract::FromRef;
 use axum::extract::FromRequest;
+use axum::extract::FromRequestParts;
 use axum_template::engine::Engine;
 use axum_template::TemplateEngine;
 use rstest::*;
 
-struct AssertImpl<E, B>(pub E, pub PhantomData<B>)
+struct AssertImpl<E, S>(pub E, PhantomData<S>)
 where
-    E: Send + Sync + TemplateEngine + FromRequest<B>,
-    // Body type required by FromRequest
-    B: Send;
+    E: Send + Sync + TemplateEngine + FromRef<S>;
 
 #[cfg(feature = "tera")]
 #[rstest]
 fn engine_teras_assert_impl() {
-    let phantom: PhantomData<()> = Default::default();
-    AssertImpl(Engine::new(tera::Tera::default()), phantom);
+    AssertImpl(Engine::new(tera::Tera::default()), Default::default());
 }
 
 #[cfg(feature = "handlebars")]
 #[rstest]
 fn engine_handlebars_assert_impl() {
     let phantom: PhantomData<()> = Default::default();
-    AssertImpl(Engine::new(handlebars::Handlebars::new()), phantom);
+    AssertImpl(
+        Engine::new(handlebars::Handlebars::new()),
+        Default::default(),
+    );
 }
 
 #[cfg(feature = "minijinja")]
 #[rstest]
 fn engine_minijinja_assert_impl() {
     let phantom: PhantomData<()> = Default::default();
-    AssertImpl(Engine::new(minijinja::Environment::new()), phantom);
+    AssertImpl(
+        Engine::new(minijinja::Environment::new()),
+        Default::default(),
+    );
 }

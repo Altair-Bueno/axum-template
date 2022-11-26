@@ -5,7 +5,12 @@
 //! ```sh
 //! cargo run --example=handlebars --features=handlebars
 //! ```
-use axum::{extract::Path, response::IntoResponse, routing::get, Router, Server};
+use axum::{
+    extract::{FromRef, Path},
+    response::IntoResponse,
+    routing::get,
+    Router, Server,
+};
 use axum_template::{engine::Engine, Key, RenderHtml};
 use handlebars::Handlebars;
 use serde::Serialize;
@@ -30,6 +35,11 @@ async fn get_name(
     RenderHtml(key, engine, person)
 }
 
+#[derive(Clone, FromRef)]
+struct AppState {
+    engine: AppEngine,
+}
+
 #[tokio::main]
 async fn main() {
     // Set up the Handlebars engine with the same route paths as the Axum router
@@ -40,8 +50,9 @@ async fn main() {
     let app = Router::new()
         .route("/:name", get(get_name))
         // Add the Engine layer with your Handlebars instance
-        .layer(Engine::new(hbs));
-
+        .with_state(AppState {
+            engine: Engine::from(hbs),
+        });
     println!("See example: http://127.0.0.1:8080/example");
     Server::bind(&([127, 0, 0, 1], 8080).into())
         .serve(app.into_make_service())

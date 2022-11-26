@@ -21,7 +21,7 @@ thiserror = "1"
 
 tower-layer = "0.3.1"
 tower-http = { version = "0.3.4", features = ["add-extension"] }
-axum = { version = "0.5.13", features=["matched-path"], default-features = false }
+axum = { version = "0.6.0", features=["matched-path"], default-features = false }
 
 # Supported template engines
 tera = { version = "1.17.0", optional = true, default-features = false }
@@ -29,11 +29,11 @@ handlebars = { version = "4.3.3", optional = true, default-features = false }
 minijinja = { version = "0.26.0", optional = true, default-features = false }
 
 [dev-dependencies]
-tokio = { version = "1.20.1", features = ["full"] }
+tokio = { version = "1.22.0", features = ["full"] }
 serde = { version = "1", features= ["derive"] }
 tower-http = { version = "0.3.4", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
-axum = "0.5.13"
+axum = { version = "0.6.0", features = ["macros", "tokio"] }
 rstest = "0.15.0"
 speculoos = "0.10.0"
 anyhow = "1.0.61"

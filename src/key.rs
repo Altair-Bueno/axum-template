@@ -1,6 +1,8 @@
 use axum::{
     async_trait,
-    extract::{rejection::MatchedPathRejection, FromRequest, MatchedPath, RequestParts},
+    extract::{rejection::MatchedPathRejection, FromRequestParts, MatchedPath},
+    http::request::Parts,
+    RequestPartsExt,
 };
 
 /// Extracts matched path of the request
@@ -42,14 +44,14 @@ use axum::{
 pub struct Key(pub String);
 
 #[async_trait]
-impl<B> FromRequest<B> for Key
+impl<S> FromRequestParts<S> for Key
 where
-    B: Send,
+    S: Send + Sync,
 {
     type Rejection = MatchedPathRejection;
 
-    async fn from_request(req: &mut RequestParts<B>) -> Result<Self, Self::Rejection> {
-        let path = req.extract::<MatchedPath>().await?.as_str().to_owned();
+    async fn from_request_parts(parts: &mut Parts, _: &S) -> Result<Self, Self::Rejection> {
+        let path = parts.extract::<MatchedPath>().await?.as_str().to_owned();
         Ok(Key(path))
     }
 }
