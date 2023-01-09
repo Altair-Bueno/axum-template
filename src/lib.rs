@@ -3,13 +3,6 @@
 //!
 //! # Getting started
 //!
-//! ## `Cargo.toml`
-//!
-//! ```toml
-//! [dependencies]
-//! axum-template = "*"
-//! ```
-//!
 //! The [`engine`] module contains detailed usage examples for each of the
 //! supported template engines.
 //!
