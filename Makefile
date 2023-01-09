@@ -46,7 +46,7 @@ README.md: src/lib.rs
 
 ################################################################################
 
-.PHONY: sync test \
+.PHONY: sync test ci \
         $(filter build%, $(MAKECMDGOALS)) \
         $(filter lint%, $(MAKECMDGOALS)) 
 
