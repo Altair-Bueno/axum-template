@@ -2,6 +2,8 @@
 //!
 //! See https://github.com/Altair-Bueno/axum-template/issues/8
 
+#![allow(unused)]
+
 use axum::response::IntoResponse;
 use axum_template::engine::Engine;
 use axum_template::Render;
