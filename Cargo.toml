@@ -24,7 +24,7 @@ axum = { version = "0.6.0", features=["matched-path"], default-features = false 
 # Supported template engines
 tera = { version = "1.17.0", optional = true, default-features = false }
 handlebars = { version = "4.3.3", optional = true, default-features = false }
-minijinja = { version = "0.29.0", optional = true, default-features = false }
+minijinja = { version = "0.30.1", optional = true, default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.22.0", features = ["full"] }
