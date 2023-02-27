@@ -29,7 +29,7 @@ minijinja = { version = "0.30.1", optional = true, default-features = false }
 [dev-dependencies]
 tokio = { version = "1.22.0", features = ["full"] }
 serde = { version = "1", features= ["derive"] }
-tower-http = { version = "0.3.4", features = ["full"] }
+tower-http = { version = "0.4.0", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
 axum = { version = "0.6.0", features = ["macros", "tokio"] }
 rstest = "0.16.0"
