@@ -12,8 +12,6 @@ CARGO_EXAMPLES = custom_engine \
 ci: CARGO_CCARGS = --all-features --verbose
 ci: test build lint
 
-sync: README.md
-
 test:
 	$(CARGO) test $(CARGO_CCARGS)
 
@@ -39,14 +37,8 @@ lint/fmt:
 	$(CARGO) fmt --check
 
 ################################################################################
-# Make targets
-README.md: src/lib.rs
-	@echo Updating $@
-	$(CARGO) sync-readme
 
-################################################################################
-
-.PHONY: sync test ci \
+.PHONY: test ci \
         $(filter build%, $(MAKECMDGOALS)) \
         $(filter lint%, $(MAKECMDGOALS)) 
 

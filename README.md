@@ -1,5 +1,4 @@
 # axum-template
-<!-- cargo-sync-readme start -->
 
 Layers, extractors and template engine wrappers for
 [axum] based Web MVC applications
@@ -38,5 +37,3 @@ Licensed under the MIT license. See [LICENSE] for more information
 [minijinja]: https://crates.io/crates/minijinja
 [tera]: https://crates.io/crates/tera
 
-
-<!-- cargo-sync-readme end -->
