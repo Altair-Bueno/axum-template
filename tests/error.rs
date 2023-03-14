@@ -14,7 +14,7 @@ use rstest::*;
 #[trace]
 #[tokio::test]
 async fn tera_error_into_response_check_infinite_recursion() -> anyhow::Result<()> {
-    let engine = tera::Tera::new("*.nothing")?;
+    let engine = tera::Tera::new("./*.nothing")?;
     let engine = Engine::new(engine);
     let data = ();
     _ = Render("", engine, data).into_response();
