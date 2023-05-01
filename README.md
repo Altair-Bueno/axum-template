@@ -22,6 +22,14 @@ If you plan using an unsupported engine, check the [`TemplateEngine`] docs
 - [Examples]
 - [Source code]
 
+## Learning resources
+
+Tutorials, blog posts and success stories not affiliated to this project.
+They might be useful for new commers of the Rust programming language or
+experienced devs that would like to see this library in action.
+
+- [Server-side rendering in Rust - a Dall.E use-case](https://blog.frankel.ch/server-side-rendering-rust/)
+
 # License
 
 Licensed under the MIT license. See [LICENSE] for more information
