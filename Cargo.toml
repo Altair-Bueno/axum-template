@@ -22,7 +22,7 @@ thiserror = "1"
 axum = { version = "0.6.0", features=["matched-path"], default-features = false }
 
 # Supported template engines
-tera = { version = "1.17.0", optional = true, default-features = false }
+tera = { version = "1.19.0", optional = true, default-features = false }
 handlebars = { version = "4.3.3", optional = true, default-features = false }
 minijinja = { version = "1.0.0", optional = true, default-features = false }
 
