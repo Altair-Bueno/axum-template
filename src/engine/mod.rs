@@ -9,11 +9,23 @@
 //! - [`tera`](#tera)
 //!
 //! # `handlebars`
-#![doc = concat!("```ignore\n",include_str!("../../examples/handlebars.rs"), "\n```")]
+//!
+//! ```no_run
+#![doc = include_str!("../../examples/handlebars.rs")]
+//! ```
+//!
 //! # `minijinja`
-#![doc = concat!("```ignore\n",include_str!("../../examples/minijinja.rs"), "\n```")]
+//!
+//! ```no_run
+#![doc = include_str!("../../examples/minijinja.rs")]
+//! ```
+//!
 //! # `tera`
-#![doc = concat!("```ignore\n",include_str!("../../examples/tera.rs"), "\n```")]
+//!
+//! ```no_run
+#![doc = include_str!("../../examples/tera.rs")]
+//! ```
+//!
 
 use axum::{
     async_trait,
