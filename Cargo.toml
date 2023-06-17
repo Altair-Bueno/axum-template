@@ -19,7 +19,9 @@ all-features = true
 serde = "1"
 thiserror = "1"
 
-axum = { version = "0.6.0", features=["matched-path"], default-features = false }
+axum = { version = "0.6.0", features = [
+    "matched-path",
+], default-features = false }
 
 # Supported template engines
 tera = { version = "1.19.0", optional = true, default-features = false }
@@ -28,7 +30,7 @@ minijinja = { version = "1.0.0", optional = true, default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.22.0", features = ["full"] }
-serde = { version = "1", features= ["derive"] }
+serde = { version = "1", features = ["derive"] }
 tower-http = { version = "0.4.0", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
 axum = { version = "0.6.0", features = ["macros", "tokio"] }
@@ -36,10 +38,11 @@ rstest = "0.17.0"
 speculoos = "0.11.0"
 anyhow = "1.0.61"
 hyper = "0.14.20"
+rand = "0.8.5"
 
 [[example]]
 name = "tera"
-required-features=["tera"]
+required-features = ["tera"]
 
 [[example]]
 name = "handlebars"
@@ -58,4 +61,8 @@ name = "custom_engine"
 
 [[example]]
 name = "nested"
+required-features = ["handlebars"]
+
+[[example]]
+name = "dynamic_template"
 required-features = ["handlebars"]
