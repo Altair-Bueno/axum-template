@@ -27,6 +27,7 @@ use crate::TemplateEngine;
 /// }
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[must_use]
 pub struct Render<K, E, S>(pub K, pub E, pub S);
 
 impl<K, E, S> IntoResponse for Render<K, E, S>
@@ -71,6 +72,7 @@ where
 /// }
 /// ```
 #[derive(Debug, Clone, PartialEq, Eq)]
+#[must_use]
 pub struct RenderHtml<K, E, S>(pub K, pub E, pub S);
 
 impl<K, E, S> IntoResponse for RenderHtml<K, E, S>
