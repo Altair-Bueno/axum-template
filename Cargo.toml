@@ -37,7 +37,7 @@ axum = { version = "0.6.0", features = ["macros", "tokio"] }
 rstest = "0.18.0"
 speculoos = "0.11.0"
 anyhow = "1.0.61"
-hyper = "0.14.20"
+hyper = "1.0.1"
 rand = "0.8.5"
 
 [[example]]
