@@ -19,7 +19,7 @@ use axum::{
 ///     key
 /// }
 ///
-/// let router = Router::new()
+/// let router: Router<()> = Router::new()
 ///     // key == "/some/route"
 ///     .route("/some/route", get(handler))
 ///     // key == "/:dynamic"
