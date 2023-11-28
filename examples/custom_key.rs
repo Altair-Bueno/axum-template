@@ -6,17 +6,20 @@
 //! cargo run --example=custom_key --features=tera
 //! ```
 
+use std::net::Ipv4Addr;
+
 use axum::{
     async_trait,
     extract::{rejection::MatchedPathRejection, FromRef, FromRequestParts, MatchedPath, Path},
     http::request::Parts,
     response::IntoResponse,
     routing::get,
-    RequestPartsExt, Router, Server,
+    serve, RequestPartsExt, Router,
 };
 use axum_template::{engine::Engine, RenderHtml};
 use serde::Serialize;
 use tera::Tera;
+use tokio::net::TcpListener;
 
 // Because Tera::new loads an entire folder, we need to remove the `/` prefix
 // and add a `.html` suffix. We can implement our own custom key extractor that
@@ -85,8 +88,8 @@ async fn main() {
         });
 
     println!("See example: http://127.0.0.1:8080/example");
-    Server::bind(&([127, 0, 0, 1], 8080).into())
-        .serve(app.into_make_service())
+    let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 8080))
         .await
         .unwrap();
+    serve(listener, app.into_make_service()).await.unwrap();
 }
