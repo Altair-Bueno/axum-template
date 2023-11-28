@@ -5,15 +5,18 @@
 //! ```sh
 //! cargo run --example=tera --features=tera
 //! ```
+use std::net::Ipv4Addr;
+
 use axum::{
     extract::{FromRef, Path},
     response::IntoResponse,
     routing::get,
-    Router, Server,
+    serve, Router,
 };
 use axum_template::{engine::Engine, Key, RenderHtml};
 use serde::Serialize;
 use tera::Tera;
+use tokio::net::TcpListener;
 
 // Type alias for our engine. For this example, we are using Tera
 type AppEngine = Engine<Tera>;
@@ -56,8 +59,8 @@ async fn main() {
         });
 
     println!("See example: http://127.0.0.1:8080/example");
-    Server::bind(&([127, 0, 0, 1], 8080).into())
-        .serve(app.into_make_service())
+    let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 8080))
         .await
         .unwrap();
+    serve(listener, app.into_make_service()).await.unwrap();
 }

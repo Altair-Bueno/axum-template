@@ -5,15 +5,18 @@
 //! ```sh
 //! cargo run --example=handlebars --features=handlebars
 //! ```
+use std::net::Ipv4Addr;
+
 use axum::{
     extract::{FromRef, Path},
     response::IntoResponse,
     routing::get,
-    Router, Server,
+    serve, Router,
 };
 use axum_template::{engine::Engine, Key, RenderHtml};
 use handlebars::Handlebars;
 use serde::Serialize;
+use tokio::net::TcpListener;
 
 // Type alias for our engine. For this example, we are using Handlebars
 type AppEngine = Engine<Handlebars<'static>>;
@@ -55,8 +58,9 @@ async fn main() {
             engine: Engine::from(hbs),
         });
     println!("See example: http://127.0.0.1:8080/example");
-    Server::bind(&([127, 0, 0, 1], 8080).into())
-        .serve(app.into_make_service())
+
+    let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 8080))
         .await
         .unwrap();
+    serve(listener, app.into_make_service()).await.unwrap();
 }

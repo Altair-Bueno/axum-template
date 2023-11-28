@@ -6,7 +6,7 @@
 //! cargo run --example=custom_engine
 //! ```
 
-use std::convert::Infallible;
+use std::{convert::Infallible, net::Ipv4Addr};
 
 use axum::{
     async_trait,
@@ -14,10 +14,11 @@ use axum::{
     http::request::Parts,
     response::IntoResponse,
     routing::get,
-    Router, Server,
+    serve, Router,
 };
 use axum_template::{Key, RenderHtml, TemplateEngine};
 use serde::Serialize;
+use tokio::net::TcpListener;
 
 // Clone is required by `axum::extract::Extension`
 #[derive(Debug, Clone)]
@@ -75,8 +76,8 @@ async fn main() {
         .with_state(AppState { engine });
 
     println!("See example: http://127.0.0.1:8080/example");
-    Server::bind(&([127, 0, 0, 1], 8080).into())
-        .serve(app.into_make_service())
+    let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 8080))
         .await
         .unwrap();
+    serve(listener, app.into_make_service()).await.unwrap();
 }
