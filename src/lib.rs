@@ -35,7 +35,7 @@
     missing_docs,
     rustdoc::missing_doc_code_examples
 )]
-#![deny(unreachable_pub, private_in_public)]
+#![deny(unreachable_pub)]
 #![forbid(unsafe_code)]
 
 mod key;
