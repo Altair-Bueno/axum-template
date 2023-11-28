@@ -10,7 +10,7 @@ use axum::{
 /// # Usage
 ///
 /// ```
-/// # use axum::{response::IntoResponse, Server, Router, routing::get};
+/// # use axum::{response::IntoResponse, Router, routing::get};
 /// # use axum_template::Key;
 /// async fn handler(
 ///     Key(key): Key
@@ -24,13 +24,6 @@ use axum::{
 ///     .route("/some/route", get(handler))
 ///     // key == "/:dynamic"
 ///     .route("/:dynamic", get(handler));
-///
-/// # async {
-/// axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
-///     .serve(router.into_make_service())
-///     .await
-///     .expect("server failed");
-/// # };
 /// ```
 ///
 /// # Additional resources
