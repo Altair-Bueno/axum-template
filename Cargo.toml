@@ -19,7 +19,7 @@ all-features = true
 serde = "1"
 thiserror = "1"
 
-axum = { version = "0.6.0", features = [
+axum = { version = "0.7.1", features = [
     "matched-path",
 ], default-features = false }
 
@@ -33,7 +33,7 @@ tokio = { version = "1.22.0", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 tower-http = { version = "0.5.0", features = ["full"] }
 tower = { version = "0.4.13", features = ["full"] }
-axum = { version = "0.6.0", features = ["macros", "tokio"] }
+axum = { version = "0.7.1", features = ["macros", "tokio"] }
 rstest = "0.18.0"
 speculoos = "0.11.0"
 anyhow = "1.0.61"
