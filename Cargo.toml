@@ -1,6 +1,6 @@
 [package]
 name = "axum-template"
-version = "1.0.0"
+version = "2.0.0"
 edition = "2021"
 license = "MIT"
 description = "Layers, extractors and template engine wrappers for axum based Web MVC applications"
@@ -19,14 +19,15 @@ all-features = true
 serde = "1"
 thiserror = "1"
 
-axum = { version = "0.7.1", features = [
-    "matched-path",
-], default-features = false }
-
 # Supported template engines
 tera = { version = "1.19.0", optional = true, default-features = false }
 handlebars = { version = "4.3.3", optional = true, default-features = false }
 minijinja = { version = "1.0.0", optional = true, default-features = false }
+
+[dependencies.axum]
+version = "0.7.1"
+default-features = false
+features = ["matched-path"]
 
 [dev-dependencies]
 tokio = { version = "1.22.0", features = ["full"] }
