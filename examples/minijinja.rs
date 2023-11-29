@@ -46,7 +46,7 @@ struct AppState {
 
 #[tokio::main]
 async fn main() {
-    // Set up the Handlebars engine with the same route paths as the Axum router
+    // Set up the `minijinja` engine with the same route paths as the Axum router
     let mut jinja = Environment::new();
     jinja
         .add_template("/:name", "<h1>Hello Minijinja!</h1><p>{{name}}</p>")
