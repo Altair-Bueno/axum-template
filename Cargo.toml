@@ -22,7 +22,8 @@ thiserror = "1"
 # Supported template engines
 tera = { version = "1.19.0", optional = true, default-features = false }
 handlebars = { version = "5.0.0", optional = true, default-features = false }
-minijinja = { version = "1.0.0", optional = true, default-features = false }
+minijinja = { version = "1.0.12", optional = true, default-features = false }
+minijinja-autoreload = { version = "1.0.12", optional = true, default-features = false }
 
 [dependencies.axum]
 version = "0.7.1"
@@ -52,6 +53,10 @@ required-features = ["handlebars"]
 [[example]]
 name = "minijinja"
 required-features = ["minijinja"]
+
+[[example]]
+name = "minijinja-autoreload"
+required-features = ["minijinja-autoreload"]
 
 [[example]]
 name = "custom_key"
