@@ -49,16 +49,7 @@ async fn main() {
             .join("minijinja");
         let mut env = Environment::new();
         env.set_loader(path_loader(&template_path));
-
-        // if fast_autoreload {
-        //     notifier.set_fast_reload(true);
-        // }
         notifier.set_fast_reload(true);
-
-        // if watch_path is never called, no fs watcher is created
-        // if !disable_autoreload {
-        //     notifier.watch_path(&template_path, true);
-        // }
         notifier.watch_path(&template_path, true);
         Ok(env)
     });

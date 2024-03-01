@@ -37,3 +37,11 @@ fn engine_minijinja_assert_impl() {
         Default::default(),
     );
 }
+
+#[cfg(feature = "minijinja-autoreload")]
+#[rstest]
+fn engine_minijinja_autoreload_assert_impl() {
+    let phantom: PhantomData<()> = Default::default();
+    let jinja = minijinja_autoreload::AutoReloader::new(move |_| Ok(minijinja::Environment::new()));
+    AssertImpl(Engine::new(jinja), Default::default());
+}
