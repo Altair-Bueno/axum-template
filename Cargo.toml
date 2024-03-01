@@ -56,7 +56,7 @@ required-features = ["minijinja"]
 
 [[example]]
 name = "minijinja-autoreload"
-required-features = ["minijinja-autoreload"]
+required-features = ["minijinja-autoreload", "minijinja-autoreload/watch-fs", "minijinja", "minijinja/loader"]
 
 [[example]]
 name = "custom_key"

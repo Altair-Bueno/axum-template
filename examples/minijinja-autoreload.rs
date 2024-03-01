@@ -5,8 +5,6 @@
 //! ```sh
 //! cargo run --example=minijinja-autoreload --features=minijinja,minijinja/loader,minijinja-autoreload,minijinja-autoreload/watch-fs
 //! ```
-use std::net::Ipv4Addr;
-use std::path::PathBuf;
 use axum::{
     extract::{FromRef, Path},
     response::IntoResponse,
@@ -17,6 +15,8 @@ use axum_template::{engine::Engine, RenderHtml};
 use minijinja::{path_loader, Environment};
 use minijinja_autoreload::AutoReloader;
 use serde::Serialize;
+use std::net::Ipv4Addr;
+use std::path::PathBuf;
 use tokio::net::TcpListener;
 
 // Type alias for our engine. For this example, we are using Mini Jinja
@@ -27,10 +27,7 @@ pub struct Person {
     name: String,
 }
 
-async fn get_name(
-    engine: AppEngine,
-    Path(name): Path<String>,
-) -> impl IntoResponse {
+async fn get_name(engine: AppEngine, Path(name): Path<String>) -> impl IntoResponse {
     let person = Person { name };
 
     RenderHtml("hello.html", engine, person)
@@ -46,7 +43,10 @@ struct AppState {
 async fn main() {
     // Set up the `minijinja` engine with the same route paths as the Axum router
     let jinja = AutoReloader::new(move |notifier| {
-        let template_path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("examples").join("templates").join("minijinja");
+        let template_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("examples")
+            .join("templates")
+            .join("minijinja");
         let mut env = Environment::new();
         env.set_loader(path_loader(&template_path));
 
