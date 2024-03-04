@@ -44,9 +44,9 @@ mod tera;
 #[cfg(feature = "tera")]
 pub use self::tera::*;
 
-#[cfg(feature = "minijinja")]
+#[cfg(any(feature = "minijinja", feature = "minijinja-autoreload"))]
 mod minijinja;
-#[cfg(feature = "minijinja")]
+#[cfg(any(feature = "minijinja", feature = "minijinja-autoreload"))]
 pub use self::minijinja::*;
 
 /// A wrapper type that implements [`TemplateEngine`] for multiple
