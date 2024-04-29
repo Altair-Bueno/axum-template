@@ -15,6 +15,7 @@ Cargo.lock
 /Cargo.lock
 
 # Editors
-.idea 
+.idea
 *.iml
 .vscode
+.zed
