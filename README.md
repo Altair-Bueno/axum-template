@@ -1,5 +1,11 @@
 # axum-template
 
+[![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Test status](https://github.com/Altair-Bueno/axum-template/actions/workflows/test.yml/badge.svg)](https://github.com/Altair-Bueno/axum-template/actions/workflows/test.yml)
+[![Crates.io Version](https://img.shields.io/crates/v/axum-template.svg)](https://crates.io/crates/axum-template)
+[![docs.rs](https://img.shields.io/docsrs/axum-template)](https://docs.rs/axum-template)
+![MSRV](https://img.shields.io/crates/msrv/axum-template)
+
 Layers, extractors and template engine wrappers for [axum] based Web MVC
 applications
 
