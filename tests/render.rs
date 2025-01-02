@@ -17,7 +17,7 @@ impl TemplateEngine for MockEngine {
 
 #[fixture]
 fn engine() -> MockEngine {
-    MockEngine::default()
+    MockEngine
 }
 
 #[rstest]

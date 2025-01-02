@@ -6,8 +6,8 @@ use tower::util::ServiceExt;
 
 #[rstest]
 #[case("/", "/")]
-#[case("/:hello", "/world")]
-#[case("/:hello", "/guys")]
+#[case("/{hello}", "/world")]
+#[case("/{hello}", "/guys")]
 #[trace]
 #[tokio::test]
 async fn key_extracts_from_request_route_path(

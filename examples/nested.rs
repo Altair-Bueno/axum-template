@@ -40,15 +40,15 @@ struct AppState {
 #[tokio::main]
 async fn main() {
     let mut hbs = Handlebars::new();
-    hbs.register_template_string("/:name", "Simple {{ name }}")
+    hbs.register_template_string("/{name}", "Simple {{ name }}")
         .unwrap();
-    hbs.register_template_string("/nested/:name", "Nested {{name}}")
+    hbs.register_template_string("/nested/{name}", "Nested {{name}}")
         .unwrap();
 
-    let nested = Router::new().route("/:name", get(get_name));
+    let nested = Router::new().route("/{name}", get(get_name));
 
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         .nest("/nested", nested)
         .with_state(AppState {
             engine: Engine::from(hbs),

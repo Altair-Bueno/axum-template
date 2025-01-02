@@ -55,7 +55,7 @@ async fn main() {
     });
 
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         // Create the application state
         .with_state(AppState {
             engine: Engine::from(jinja),

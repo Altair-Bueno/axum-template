@@ -26,7 +26,7 @@ minijinja = { version = "2.0.1", optional = true, default-features = false }
 minijinja-autoreload = { version = "2.0.1", optional = true, default-features = false }
 
 [dependencies.axum]
-version = "0.7.1"
+version = "0.8.0"
 default-features = false
 features = ["matched-path"]
 
@@ -35,8 +35,8 @@ tokio = { version = "1.22.0", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 tower-http = { version = "0.6.0", features = ["full"] }
 tower = { version = "0.5.0", features = ["full"] }
-axum = { version = "0.7.1", features = ["macros", "tokio"] }
-rstest = "0.23.0"
+axum = { version = "0.8.0", features = ["macros", "tokio"] }
+rstest = "0.24.0"
 speculoos = "0.11.0"
 anyhow = "1.0.61"
 hyper = "1.0.1"
@@ -56,12 +56,7 @@ required-features = ["minijinja"]
 
 [[example]]
 name = "minijinja-autoreload"
-required-features = [
-    "minijinja-autoreload",
-    "minijinja-autoreload/watch-fs",
-    "minijinja",
-    "minijinja/loader",
-]
+required-features = ["minijinja-autoreload", "minijinja-autoreload/watch-fs", "minijinja", "minijinja/loader"]
 
 [[example]]
 name = "custom_key"

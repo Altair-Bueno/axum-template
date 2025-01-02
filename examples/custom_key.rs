@@ -9,7 +9,6 @@
 use std::net::Ipv4Addr;
 
 use axum::{
-    async_trait,
     extract::{rejection::MatchedPathRejection, FromRef, FromRequestParts, MatchedPath, Path},
     http::request::Parts,
     response::IntoResponse,
@@ -26,7 +25,6 @@ use tokio::net::TcpListener;
 // transform the key
 pub struct CustomKey(pub String);
 
-#[async_trait]
 impl<S> FromRequestParts<S> for CustomKey
 where
     S: Send + Sync,
@@ -39,8 +37,6 @@ where
             .extract::<MatchedPath>()
             .await?
             .as_str()
-            // Cargo doesn't allow `:` as a file name
-            .replace(":", "$")
             .chars()
             // Remove the first character `/`
             .skip(1)
@@ -79,10 +75,10 @@ struct AppState {
 #[tokio::main]
 async fn main() {
     // Tera allows loading an entire folder using glob patterns. This will load
-    // our file examples/templates/tera/$name.html with the key $name.html
+    // our file examples/templates/tera/{name}.html with the key {name}.html
     let tera = Tera::new("examples/templates/tera/**/*.html").expect("Template folder not found");
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         .with_state(AppState {
             engine: Engine::from(tera),
         });

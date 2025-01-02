@@ -49,11 +49,11 @@ async fn main() {
     // Set up the `minijinja` engine with the same route paths as the Axum router
     let mut jinja = Environment::new();
     jinja
-        .add_template("/:name", "<h1>Hello Minijinja!</h1><p>{{name}}</p>")
+        .add_template("/{name}", "<h1>Hello Minijinja!</h1><p>{{name}}</p>")
         .unwrap();
 
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         // Create the application state
         .with_state(AppState {
             engine: Engine::from(jinja),

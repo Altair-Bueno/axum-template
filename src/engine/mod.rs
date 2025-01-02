@@ -11,24 +11,23 @@
 //! # `handlebars`
 //!
 //! ```no_run
-#![doc = include_str!("../../examples/handlebars.rs")]
+#![cfg_attr(feature="handlebars", doc = include_str!("../../examples/handlebars.rs"))]
 //! ```
 //!
 //! # `minijinja`
 //!
 //! ```no_run
-#![doc = include_str!("../../examples/minijinja.rs")]
+#![cfg_attr(feature="minijinja", doc = include_str!("../../examples/minijinja.rs"))]
 //! ```
 //!
 //! # `tera`
 //!
 //! ```no_run
-#![doc = include_str!("../../examples/tera.rs")]
+#![cfg_attr(feature="tera", doc = include_str!("../../examples/tera.rs"))]
 //! ```
 //!
 
 use axum::{
-    async_trait,
     extract::{FromRef, FromRequestParts},
     http::request::Parts,
 };
@@ -82,7 +81,6 @@ impl<E> From<E> for Engine<E> {
     }
 }
 
-#[async_trait]
 impl<ApplicationState, E> FromRequestParts<ApplicationState> for Engine<E>
 where
     Self: Send + Sync + 'static + FromRef<ApplicationState>,

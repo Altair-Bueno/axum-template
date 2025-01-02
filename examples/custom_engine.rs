@@ -9,7 +9,6 @@
 use std::{convert::Infallible, net::Ipv4Addr};
 
 use axum::{
-    async_trait,
     extract::{FromRef, FromRequestParts},
     http::request::Parts,
     response::IntoResponse,
@@ -34,7 +33,6 @@ impl TemplateEngine for CustomEngine {
     }
 }
 
-#[async_trait]
 impl<ApplicationState> FromRequestParts<ApplicationState> for CustomEngine
 where
     Self: Send + Sync + 'static + FromRef<ApplicationState>,
@@ -70,7 +68,7 @@ struct AppState {
 async fn main() {
     let engine = CustomEngine;
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         // Share the engine using `axum::Extension`, or implement `tower::Layer`
         // manually for your engine
         .with_state(AppState { engine });

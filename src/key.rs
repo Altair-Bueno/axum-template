@@ -1,6 +1,7 @@
 use axum::{
-    async_trait,
-    extract::{rejection::MatchedPathRejection, FromRequestParts, MatchedPath},
+    extract::{
+        rejection::MatchedPathRejection, FromRequestParts, MatchedPath, OptionalFromRequestParts,
+    },
     http::request::Parts,
     RequestPartsExt,
 };
@@ -22,8 +23,8 @@ use axum::{
 /// let router: Router<()> = Router::new()
 ///     // key == "/some/route"
 ///     .route("/some/route", get(handler))
-///     // key == "/:dynamic"
-///     .route("/:dynamic", get(handler));
+///     // key == "/{dynamic}"
+///     .route("/{dynamic}", get(handler));
 /// ```
 ///
 /// # Additional resources
@@ -36,7 +37,6 @@ use axum::{
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Key(pub String);
 
-#[async_trait]
 impl<S> FromRequestParts<S> for Key
 where
     S: Send + Sync,
@@ -46,6 +46,22 @@ where
     async fn from_request_parts(parts: &mut Parts, _: &S) -> Result<Self, Self::Rejection> {
         let path = parts.extract::<MatchedPath>().await?.as_str().to_owned();
         Ok(Key(path))
+    }
+}
+
+impl<S> OptionalFromRequestParts<S> for Key
+where
+    S: Send + Sync,
+{
+    type Rejection = <MatchedPath as OptionalFromRequestParts<S>>::Rejection;
+
+    async fn from_request_parts(
+        parts: &mut Parts,
+        state: &S,
+    ) -> Result<Option<Self>, Self::Rejection> {
+        let path =
+            <MatchedPath as OptionalFromRequestParts<S>>::from_request_parts(parts, state).await?;
+        Ok(path.map(|path| Key(path.as_str().to_owned())))
     }
 }
 

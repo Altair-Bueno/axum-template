@@ -48,11 +48,11 @@ struct AppState {
 async fn main() {
     // Set up the Handlebars engine with the same route paths as the Axum router
     let mut hbs = Handlebars::new();
-    hbs.register_template_string("/:name", "<h1>Hello HandleBars!</h1><p>{{name}}</p>")
+    hbs.register_template_string("/{name}", "<h1>Hello HandleBars!</h1><p>{{name}}</p>")
         .unwrap();
 
     let app = Router::new()
-        .route("/:name", get(get_name))
+        .route("/{name}", get(get_name))
         // Create the application state
         .with_state(AppState {
             engine: Engine::from(hbs),
