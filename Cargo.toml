@@ -9,6 +9,7 @@ repository = "https://github.com/Altair-Bueno/axum-template"
 readme = "README.md"
 keywords = ["axum", "minijinja", "tera", "handlebars", "mvc"]
 categories = ["template-engine", "web-programming"]
+rust-version = "1.83.0"
 
 [package.metadata.docs.rs]
 all-features = true

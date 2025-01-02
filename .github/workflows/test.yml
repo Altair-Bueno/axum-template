@@ -17,6 +17,7 @@ jobs:
       matrix:
         toolchain:
           - stable
+          - "1.83"
           # - beta
           # - nightly
     steps:
